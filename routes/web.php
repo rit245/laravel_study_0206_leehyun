@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::post('/articles', function() {
-    return 'hello';
+require __DIR__.'/auth.php';
+
+/* articles/create */
+Route::get('/articles/create', function () {
+    return view('articles/create');
 });
 
-require __DIR__.'/auth.php';
+/* 저장하기 버튼 클릭 시 */
+Route::post('/articles', function(Request $request) {
+    // 비어있지않고, 문자열이고, 255자를 넘으면 안된다
+    $request->validate([
+        'body' => [
+            'required',
+            'string',
+            /*'boolean', // 10강 7:50 */
+            'max:255'
+        ],
+    ]);
+    return 'hello';
+});

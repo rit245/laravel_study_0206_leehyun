@@ -6,12 +6,38 @@
     <div class="container p5">
         <h1 class="text-2xl">글목록</h1>
         <?php //dd($articles_name); ?>
-        <?php foreach($articles_name as $article): ?>
+
+        {{-- foreach 문 사용 --}}
+        @foreach($articles_name as $article)
+            @if($loop->$first)
+                @continue
+            @endif
             <div class="background-white border rounded mb-3 p-3">
-                <?php echo $article->body; ?>
-                <?php echo $article->created_at; ?>
+                <?php //{!! $article->body !!} // 문장에서 자바스크립트 실행됨 ?>
+                 {{ $article->body }}
+                 {{ $article->created_at }}
             </div>
-        <?php endforeach; ?>
+        @endforeach
+
+        {{-- for 문 사용 즉 전체가 나옴 --}}
+        @for($i=0; $i < $articles_name->count(); $i++)
+
+            @if($i === 1)
+                @continue;
+            @endif
+
+            @isset($i) {{-- php의 isset 과 동일 --}}
+            @empty($i) {{-- php의 empty 와 동일 --}}
+            @auth {{-- 로그인한사용자만 보이고싶을 때 --}}
+            로그인한 사용자만 보임
+            @endauth
+            @guest {{-- 비회원만 보이고싶을때 --}}
+            비회원만 보임
+            @endguest
+            <p>{{  $i  }}</p>
+            <p>{{  $articles_name[$i]->body  }}</p>
+            <p>{{  $articles_name[$i]->created_at  }}</p>
+        @endfor
     </div>
 </body>
 </html>

@@ -44,3 +44,38 @@ Route::post('/articles', function(Request $request) {
     return 'hello'.$_POST['body'];
 });
 ```
+
+```angular2html
+    DB::statement("INSERT INTO articles (body, user_id) VALUES (:body, :userId)", ['body' => $input['body'], 'userId' => Auth::id()]);
+```
+
+statement : index 를 만들거나 할 때 사용
+
+
+```angular2html
+    DB::insert("INSERT INTO articles (body, user_id) VALUES (:body, :userId)", ['body' => $input['body'], 'userId' => Auth::id()]);
+```
+
+CRUD를 사용하신다면 DB:insert, DB:update, DB:delete 등으로 활용 가능
+
+```angular2html
+
+    // 엘로퀀트 ORM 사용방법
+
+    첫번째 방법
+    $article = new Article;
+    $article->body = $input['body'];
+    $article->user_id = Auth::id();
+    $article->save();
+
+    // 두번째 방법
+    Article::create([
+        'body' => $input['body'],
+        'user_id' => Auth::id()
+    ]);
+
+    // 조회방법
+    $article = Article::find(9);
+    $article->user;
+
+```

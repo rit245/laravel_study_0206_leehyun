@@ -61,7 +61,7 @@ Route::post('/articles', function(Request $request){
         'user_id' => Auth::id(),
     ]);*/
 
-    // 엘로퀀트 ORM 사용방법
+    // 엘로퀀트 ORM 사용방법 (엘로퀀트는 시간값이 자동으로 저장됩니다)
 
 //    첫번째 방법
 //    $article = new Article;
@@ -82,3 +82,10 @@ Route::post('/articles', function(Request $request){
     return 'hello'.$_POST['body'];
 });
 
+Route::get('articles', function(){
+    // 모든 글 가져오기
+    $articles = Article::all();
+    // view 두번째 아규먼트에 값을 넘길 수 있습니다.
+    return view('articles.index', ['articles_name'=>$articles]);
+//    return view('articles.index')->with('articles_name', $articles); // 위의 코드와 같은 기능 번거롭기에 잘 안씀
+});

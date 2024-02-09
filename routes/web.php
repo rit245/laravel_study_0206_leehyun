@@ -72,11 +72,11 @@ Route::post('/articles', function(Request $request) {
 //    $stmt->bindValue(':userId', '사용자의 아이디');
 
     $stmt->bindValue(':body', $input['body']);
-    $stmt->bindValue(':userId', 1);
+    $stmt->bindValue(':userId', Auth::id());
 
     $stmt->execute();
 
 
-    return 'hello'.$_POST['body'];
+    return 'hello22';
 });
 

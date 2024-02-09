@@ -20,6 +20,14 @@
             </div>
         @endforeach
 
+        <ul>
+            @for($i=0; $i < $totalCount/$perPage; $i++)
+            <li>
+                <a href="/articles?page={{$i+1}}&per_page={{$perPage}}">{{$i+1}}</a>
+            </li>
+            @endfor
+        </ul>
+
         {{-- for 문 사용 즉 전체가 나옴 --}}
         @for($i=0; $i < $articles_name->count(); $i++)
 

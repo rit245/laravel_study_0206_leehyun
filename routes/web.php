@@ -84,7 +84,23 @@ Route::post('/articles', function(Request $request){
 
 Route::get('articles', function(){
     // 모든 글 가져오기
-    $articles = Article::all();
+    // $articles = Article::all();
+
+    $page = 2;
+    $perPage = 2;
+    $offset = ($page - 1) * $perPage;
+
+    $articles = Article::select('body', 'created_at')
+        // ->orderBy('created_at', 'desc') // created_at 기준으로 내림차순
+        // ->orderBy('body', 'asc') // body 기준으로
+        // ->inRandomOrder() // 랜덤으로 출력해야할 때
+        // ->latest() // orderby created_at desc 와 같습니다
+        // ->take(2) // 개수 제한
+        // ->skip($offset) // 페이지 변경
+        // ->oldest() // 가장 오래된 순서로
+        ->get();
+
+
     // view 두번째 아규먼트에 값을 넘길 수 있습니다.
     return view('articles.index', ['articles_name'=>$articles]);
 //    return view('articles.index')->with('articles_name', $articles); // 위의 코드와 같은 기능 번거롭기에 잘 안씀

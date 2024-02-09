@@ -9,7 +9,8 @@
 
         {{-- foreach 문 사용 --}}
         @foreach($articles_name as $article)
-            @if($loop->$first)
+            {{-- 첫번째 루프만 출력 --}}
+            @if($loop->first)
                 @continue
             @endif
             <div class="background-white border rounded mb-3 p-3">
@@ -27,7 +28,9 @@
             @endif
 
             @isset($i) {{-- php의 isset 과 동일 --}}
+            @endisset
             @empty($i) {{-- php의 empty 와 동일 --}}
+            @endempty
             @auth {{-- 로그인한사용자만 보이고싶을 때 --}}
             로그인한 사용자만 보임
             @endauth

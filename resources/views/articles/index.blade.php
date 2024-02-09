@@ -1,3 +1,5 @@
+{{-- https://carbon.nesbot.com/ 사용법 챙김 --}}
+
 <html>
 <head>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -17,6 +19,8 @@
                 <?php //{!! $article->body !!} // 문장에서 자바스크립트 실행됨 ?>
                  {{ $article->body }}
                  {{ $article->created_at }}
+                {{ $article->created_at->format('Y년 m월 d일 H:i:s') }}
+                {{ $article->created_at->diffForHumans() }} {{-- ~분전 --}}
             </div>
         @endforeach
 

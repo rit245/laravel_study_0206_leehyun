@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -102,11 +103,20 @@ Route::get('articles', function(Request $request){
         // ->get();
 
     $articles->withQueryString(); // 페이지네이션 처리해도 get 값 그대로 가지고 이동
-    $articles->appents(['filter'=>'name']); // GET, POST 등 인수 인자값 추가 가능 (이를 쿼리스트링 추가 가능 이라고 함)
+    $articles->appends(['filter'=>'name']); // GET, POST 등 인수 인자값 추가 가능 (이를 쿼리스트링 추가 가능 이라고 함)
 //    $totalCount = Article::count();
 
     // 명령어 입력시 [블레이드로 만든 페이지네이션 페이지 파일] 생성
     // sail artisan vendor:publish --tag=laravel-pagination
+
+    $now = Carbon::now();
+    $past = clone $now;
+    $past->subHours;
+
+    Carbon::now(); // 현재 시간 출력
+    Carbon::now()->subHours(1)->addMinutes(10); // 현재 시간 + 한시간 후
+
+    // dd($now->diffInminutes($past)); // 비교
 
     // view 두번째 아규먼트에 값을 넘길 수 있습니다.
     return view('articles.index', [

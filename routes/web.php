@@ -95,19 +95,25 @@ Route::get('articles', function(Request $request){
         // ->orderBy('body', 'asc') // body 기준으로
         // ->inRandomOrder() // 랜덤으로 출력해야할 때
         // ->oldest() // 가장 오래된 순서로
-        ->take($perPage) // 개수 제한
-        ->skip($offset) // 페이지 변경
+        // ->take($perPage) // 개수 제한
+        // ->skip($offset) // 페이지 변경
         ->latest() // orderby created_at desc 와 같습니다
-        ->get();
+        ->paginate($perPage); // 페이지네이션 처리 지원
+        // ->get();
 
-    $totalCount = Article::count();
+    $articles->withQueryString(); // 페이지네이션 처리해도 get 값 그대로 가지고 이동
+    $articles->appents(['filter'=>'name']); // GET, POST 등 인수 인자값 추가 가능 (이를 쿼리스트링 추가 가능 이라고 함)
+//    $totalCount = Article::count();
+
+    // 명령어 입력시 [블레이드로 만든 페이지네이션 페이지 파일] 생성
+    // sail artisan vendor:publish --tag=laravel-pagination
 
     // view 두번째 아규먼트에 값을 넘길 수 있습니다.
     return view('articles.index', [
         'articles_name' => $articles,
-        'totalCount' => $totalCount,
-        'page' => $page,
-        'perPage' => $perPage
+//        'totalCount' => $totalCount,
+//        'page' => $page,
+//        'perPage' => $perPage
     ]);
 //    return view('articles.index')->with('articles_name', $articles); // 위의 코드와 같은 기능 번거롭기에 잘 안씀
 });

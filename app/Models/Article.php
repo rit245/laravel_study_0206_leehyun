@@ -14,4 +14,7 @@ class Article extends Model
     protected $fillable = ['body', 'user_id'];
 
     //protected $guarded = ['id'];
+    public static function count ()
+    {
+    }
 }

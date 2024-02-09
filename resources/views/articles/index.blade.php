@@ -20,13 +20,18 @@
             </div>
         @endforeach
 
-        <ul>
-            @for($i=0; $i < $totalCount/$perPage; $i++)
-            <li>
-                <a href="/articles?page={{$i+1}}&per_page={{$perPage}}">{{$i+1}}</a>
-            </li>
-            @endfor
-        </ul>
+{{--        <ul>--}}
+{{--            @for($i=0; $i < $totalCount/$perPage; $i++)--}}
+{{--            <li>--}}
+{{--                <a href="/articles?page={{$i+1}}&per_page={{$perPage}}">{{$i+1}}</a>--}}
+{{--            </li>--}}
+{{--            @endfor--}}
+{{--        </ul>--}}
+
+        {{-- 페이지네이션 처리 (디자인도 해줍니다) --}}
+        <div class="container p-5">
+            {{ $articles_name->links() }}
+        </div>
 
         {{-- for 문 사용 즉 전체가 나옴 --}}
         @for($i=0; $i < $articles_name->count(); $i++)

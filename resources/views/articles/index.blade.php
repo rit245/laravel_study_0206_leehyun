@@ -42,12 +42,14 @@
             @endif
             <div class="background-white border rounded mb-3 p-3">
                     <?php //{!! $article->body !!} // 문장에서 자바스크립트 실행됨 ?>
-                <p></p>{{ $article->body }}
+                <p>{{ $article->body }}</p>
 {{--                <p>{{ dd($article->user) }} --}}{{-- attribute 안에 인자값이 들어있음 --}}
-                <p>{{ $article->user->name }}
-                <p>{{ $article->created_at }}
-                <p>{{ $article->created_at->format('Y년 m월 d일 H:i:s') }}
-                    <a href="/articles/{{$article->id}}">{{ $article->created_at->diffForHumans() }} {{-- ~분전 --}}
+                <p>{{ $article->user->name }}</p>
+                <p>{{ $article->created_at }}</p>
+                <p>{{ $article->created_at->format('Y년 m월 d일 H:i:s') }}</p>
+{{--                    <a href="/articles/{{$article->id}}">{{ $article->created_at->diffForHumans() }} --}}{{-- ~분전 --}}{{--
+                    </a>--}}
+                    <a href="{{ route('articles.show', ['article' => $article->id, 'sort' => 'asc'])  }}">{{ $article->created_at->diffForHumans() }} {{-- ~분전 --}}
                     </a>
             </div>
         @endforeach

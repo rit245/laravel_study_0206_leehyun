@@ -38,7 +38,7 @@ require __DIR__.'/auth.php';
 /* articles/create */
 Route::get('/articles/create', function () {
     return view('articles/create');
-});
+})->name('articles.create');
 
 /* 저장하기 버튼 클릭 시 */
 
@@ -81,7 +81,7 @@ Route::post('/articles', function(Request $request){
 //    $article->user;
 
     return 'hello'.$_POST['body'];
-});
+})->name('articles.store');
 
 Route::get('articles', function(Request $request){
     // 모든 글 가져오기
@@ -139,14 +139,16 @@ Route::get('articles', function(Request $request){
 //        'perPage' => $perPage
     ]);
 //    return view('articles.index')->with('articles_name', $articles); // 위의 코드와 같은 기능 번거롭기에 잘 안씀
-});
+})->name('articles.index');
 
-Route::get('articles/{id}', function($id){/**/
+Route::get('articles/{article}', function(Article $article){/**/
    // return 'here';
 
-    $article = Article::find($id);
+    // 경로 모델 바인딩을 사용하여, 'articles/{article}' URL로부터 Article 모델의 인스턴스를 직접 받습니다.
+    // Property [body] does not exist on this collection instance. 에러가 뜬다면 아래 코드를 주석할 것
+     // $article = Article::find($article); // 불필요한 find 호출을 제거합니다.
 
     return view('articles.show', ['article'=> $article]);
 
-    dd($article);
-});
+    // dd($article);
+})->name('articles.show');

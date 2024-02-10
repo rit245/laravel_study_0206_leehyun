@@ -91,7 +91,7 @@ Route::get('articles', function(Request $request){
     $perPage = $request->input('per_page', 4); // GET per_page 값 가져오기
     $offset = ($page - 1) * $perPage;
 
-    $articles = Article::select('body', 'created_at')
+    $articles = Article::select('body', 'user_id', 'created_at')
         // ->orderBy('created_at', 'desc') // created_at 기준으로 내림차순
         // ->orderBy('body', 'asc') // body 기준으로
         // ->inRandomOrder() // 랜덤으로 출력해야할 때
@@ -102,6 +102,13 @@ Route::get('articles', function(Request $request){
         ->paginate($perPage); // 페이지네이션 처리 지원
         // ->get();
 
+    $results = DB::table('articles AS a')
+        ->join('users AS u', 'a.user_id', '=', 'u.id')
+        ->select(['a.*', 'u.name'])
+        ->latest() // orderby created_at desc 와 같습니다
+        ->paginate(); // 페이지네이션 처리 지원
+    ;
+
     $articles->withQueryString(); // 페이지네이션 처리해도 get 값 그대로 가지고 이동
     $articles->appends(['filter'=>'name']); // GET, POST 등 인수 인자값 추가 가능 (이를 쿼리스트링 추가 가능 이라고 함)
 //    $totalCount = Article::count();
@@ -109,18 +116,21 @@ Route::get('articles', function(Request $request){
     // 명령어 입력시 [블레이드로 만든 페이지네이션 페이지 파일] 생성
     // sail artisan vendor:publish --tag=laravel-pagination
 
-    $now = Carbon::now();
-    $past = clone $now;
-    $past->subHours;
+    /* 20. Carbon -------------------------------------------------- */
+    //$now = Carbon::now();
+    //$past = clone $now;
+    //$past->subHours;
 
-    Carbon::now(); // 현재 시간 출력
-    Carbon::now()->subHours(1)->addMinutes(10); // 현재 시간 + 한시간 후
+    //Carbon::now(); // 현재 시간 출력
+    //Carbon::now()->subHours(1)->addMinutes(10); // 현재 시간 + 한시간 후
+    /* -------------------------------------------------------------- */
 
     // dd($now->diffInminutes($past)); // 비교
 
     // view 두번째 아규먼트에 값을 넘길 수 있습니다.
     return view('articles.index', [
         'articles_name' => $articles,
+        'results_name' => $results,
 //        'totalCount' => $totalCount,
 //        'page' => $page,
 //        'perPage' => $perPage

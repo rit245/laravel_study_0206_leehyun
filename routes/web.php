@@ -92,7 +92,7 @@ Route::get('articles', function(Request $request){
     $offset = ($page - 1) * $perPage;
 
     $articles = Article::with('user') // with 방법을 통해 user 값을 한번에 가져온다
-        -> select('body', 'user_id', 'created_at')
+        // -> select('body', 'user_id', 'created_at')
         // ->orderBy('created_at', 'desc') // created_at 기준으로 내림차순
         // ->orderBy('body', 'asc') // body 기준으로
         // ->inRandomOrder() // 랜덤으로 출력해야할 때
@@ -139,4 +139,14 @@ Route::get('articles', function(Request $request){
 //        'perPage' => $perPage
     ]);
 //    return view('articles.index')->with('articles_name', $articles); // 위의 코드와 같은 기능 번거롭기에 잘 안씀
+});
+
+Route::get('articles/{id}', function($id){/**/
+   // return 'here';
+
+    $article = Article::find($id);
+
+    return view('articles.show', ['article'=> $article]);
+
+    dd($article);
 });

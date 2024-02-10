@@ -13,20 +13,19 @@
         <h1 class="text-2xl">글목록 - 조인하여 작성자이름 추가</h1>
         <?php //dd($articles_name); ?>
 
-        {{-- foreach 문 사용 --}}
+{{--        --}}{{-- foreach 문 사용 --}}{{--
         @foreach($results_name as $result)
-            {{-- 첫번째 루프만 출력 --}}
+            --}}{{-- 첫번째 루프만 출력 --}}{{--
             @if($loop->first)
                 @continue
             @endif
             <div class="background-white border rounded mb-3 p-3">
                 <?php //{!! $article->body !!} // 문장에서 자바스크립트 실행됨 ?>
-                 {{ $result->body }}
-                 {{ $result->created_at }}
-                 {{ $result->name }}
-
+                 <p>{{ $result->body }}</p>
+                 <p>{{ $result->created_at }}</p>
+                 <p>{{ $result->name }}</p>
             </div>
-        @endforeach
+        @endforeach--}}
 
 
         {{-- 글 목록 articles_name 에서 가져옴 --}}
@@ -43,12 +42,13 @@
             @endif
             <div class="background-white border rounded mb-3 p-3">
                     <?php //{!! $article->body !!} // 문장에서 자바스크립트 실행됨 ?>
-                {{ $article->body }}
-                {{ dd($article->user) }} {{-- attribute 안에 인자값이 들어있음 --}}
-                {{ $article->user->name }}
-                {{ $article->created_at }}
-                {{ $article->created_at->format('Y년 m월 d일 H:i:s') }}
-                {{ $article->created_at->diffForHumans() }} {{-- ~분전 --}}
+                <p></p>{{ $article->body }}
+{{--                <p>{{ dd($article->user) }} --}}{{-- attribute 안에 인자값이 들어있음 --}}
+                <p>{{ $article->user->name }}
+                <p>{{ $article->created_at }}
+                <p>{{ $article->created_at->format('Y년 m월 d일 H:i:s') }}
+                    <a href="/articles/{{$article->id}}">{{ $article->created_at->diffForHumans() }} {{-- ~분전 --}}
+                    </a>
             </div>
         @endforeach
 

@@ -49,8 +49,12 @@
                 <p>{{ $article->created_at->format('Y년 m월 d일 H:i:s') }}</p>
 {{--                    <a href="/articles/{{$article->id}}">{{ $article->created_at->diffForHumans() }} --}}{{-- ~분전 --}}{{--
                     </a>--}}
+                <p>
                     <a href="{{ route('articles.show', ['article' => $article->id, 'sort' => 'asc'])  }}">{{ $article->created_at->diffForHumans() }} {{-- ~분전 --}}
                     </a>
+                </p>
+                <p class="mt-2"><a class="button rounded bg-blue-500 px-2 py-1 text-xs text-white" href="{{ route('articles.edit', ['article' => $article->id]) }}">수정</a></p>
+
             </div>
         @endforeach
 

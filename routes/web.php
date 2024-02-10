@@ -152,3 +152,34 @@ Route::get('articles/{article}', function(Article $article){/**/
 
     // dd($article);
 })->name('articles.show');
+
+Route::get('articles/{article}/edit', function(Article $article){/**/
+
+    return view('articles.edit', ['article'=> $article]);
+
+    // dd($article);
+})->name('articles.edit');
+
+
+Route::put('articles/{article}/update', function(Request $request, Article $article){/**/
+
+    // The POST method is not supported for route articles/12/update. Supported methods: PUT.
+    // 폼에 <input type="hidden" name="_method" value="PUT"> 추가
+    // put 은 멱등성을 가지고 있다 : 연산을 여러 번 하더라도 결과가 달라지지 않는 성질
+    // patch 는 일부만 바뀐다 (멱등성이 보장안됨)
+    // 즉 put은 전체가 바뀜, patch 는 일부만 바뀜
+
+    /* DB 파사드 방식 */
+    $input = $request->validate([
+        'body' => [
+            'required',
+            'string',
+            'max:255'
+        ],
+    ]);
+
+    $article->body = $input['body'];
+    $article->save();
+
+})->name('articles.update');
+

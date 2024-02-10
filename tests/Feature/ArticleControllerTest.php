@@ -127,7 +127,7 @@ class ArticleControllerTest extends TestCase
     {
         $article = Article::factory()->create();
 
-        $this->delete(route('articles.delete', ['article'=>$article->id]))
+        $this->delete(route('articles.destroy', ['article'=>$article->id]))
         ->assertRedirect(route('articles.index'));
 
         $this->assertDatabaseMissing('articles', ['id'=>$article->id]);

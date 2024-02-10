@@ -53,29 +53,33 @@ require __DIR__.'/auth.php';
 //Route::patch('articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
 //
 ///* 글 삭제 처리 */
-//Route::delete('articles/{article}', [ArticleController::class, 'delete'])->name('articles.delete');
+//Route::delete('articles/{article}', [ArticleController::class, 'delete'])->name('articles.destroy');
 
-Route::controller(ArticleController::class)->group(function(){
+//Route::controller(ArticleController::class)->group(function(){
+//
+//    /* 생성 페이지 */
+//    Route::get('/articles/create', 'create')->name('articles.create');
+//
+//    /* 생성 명령어 */
+//    Route::post('/articles', 'store')->name('articles.store');
+//
+//    /* 목록 페이지 */
+//    Route::get('articles', 'index')->name('articles.index');
+//
+//    /* 글 페이지 */
+//    Route::get('articles/{article}', 'show')->name('articles.show');
+//
+//    /* 글 수정 페이지 */
+//    Route::get('articles/{article}/edit', 'edit')->name('articles.edit');
+//
+//    /* 글 수정 처리 */
+//    Route::patch('articles/{article}', 'update')->name('articles.update');
+//
+//    /* 글 삭제 처리 */
+//    Route::delete('articles/{article}', 'delete')->name('articles.destroy');
+//
+//});
 
-    /* 생성 페이지 */
-    Route::get('/articles/create', 'create')->name('articles.create');
+//
 
-    /* 생성 명령어 */
-    Route::post('/articles', 'store')->name('articles.store');
-
-    /* 목록 페이지 */
-    Route::get('articles', 'index')->name('articles.index');
-
-    /* 글 페이지 */
-    Route::get('articles/{article}', 'show')->name('articles.show');
-
-    /* 글 수정 페이지 */
-    Route::get('articles/{article}/edit', 'edit')->name('articles.edit');
-
-    /* 글 수정 처리 */
-    Route::patch('articles/{article}', 'update')->name('articles.update');
-
-    /* 글 삭제 처리 */
-    Route::delete('articles/{article}', 'delete')->name('articles.delete');
-
-});
+Route::resource('articles', ArticleController::class);

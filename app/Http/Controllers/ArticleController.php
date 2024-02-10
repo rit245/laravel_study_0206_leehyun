@@ -20,12 +20,12 @@ class ArticleController extends Controller
     public function store(Request $request){
         /* DB 파사드 방식 */
         $input = $request->validate([
-                                        'body' => [
-                                            'required',
-                                            'string',
-                                            'max:255'
-                                        ],
-                                    ]);
+            'body' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+        ]);
 
         // DB 파사드를 이용하는 방법
         // DB::insert("INSERT INTO articles (body, user_id) VALUES (:body, :userId)", ['body' => $input['body'], 'userId' => Auth::id()]);
@@ -46,15 +46,15 @@ class ArticleController extends Controller
 
         // 두번째 방법
         Article::create([
-                            'body' => $input['body'],
-                            'user_id' => Auth::id()
-                        ]);
+            'body' => $input['body'],
+            'user_id' => Auth::id()
+        ]);
 
         // 조회방법
 //    $article = Article::find(9);
 //    $article->user;
 
-        return 'hello'.$_POST['body'];
+        return redirect()->route('articles.index');
     }
 
     public function index(Request $request){

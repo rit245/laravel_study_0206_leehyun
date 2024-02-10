@@ -4,7 +4,7 @@
 </head>
 <body>
 <div class="container p5">
-    <h1 class="text-2xl">글수정하기</h1>
+    <h1 class="text-2xl">글 수정하기</h1>
     <form action="{{ route('articles.update', ['article'=> $article->id]) }}" method="post" class="mt-3">
         @csrf
         @method('PATCH')

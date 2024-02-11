@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -85,5 +86,7 @@ require __DIR__.'/auth.php';
 
 Route::resource('articles', ArticleController::class);
 // 리소스 라우트가 존재하기에 한줄로 처리 가능
+
+Route::resource('comments', CommentController::class) ;
 
 

@@ -29,8 +29,19 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+//        return $request->all();
+
+        $input = $request->validated();
+
+        Comment::create([
+            'article_id' => $input['article_id'],
+            'user_id' => $request->user()->id,
+            'body' => $input['body']
+        ]);
+
+        return redirect()->route('articles.show', ['article' => $input['article_id']]);
     }
+
 
     /**
      * Display the specified resource.

@@ -36,6 +36,7 @@
         </x-slot>
         <?php //dd($articles_name); ?>
 
+        <div class="container p-5 mx-auto">
         {{-- foreach 문 사용 --}}
         @foreach($articles_name as $article)
             {{-- 첫번째 루프만 출력 --}}
@@ -44,7 +45,7 @@
 {{--            @endif--}}
             <div class="background-white border rounded mb-3 p-3">
                     <?php //{!! $article->body !!} // 문장에서 자바스크립트 실행됨 ?>
-                <p>{{ $article->body }}</p>
+                <p><a href="{{ route('articles.show', ['article' => $article->id, 'sort' => 'asc'])  }}">{{ $article->body }}</a></p>
 {{--                <p>{{ dd($article->user) }} --}}{{-- attribute 안에 인자값이 들어있음 --}}
                 <p>{{ $article->user->name }}</p>
                 <p>{{ $article->created_at }}</p>
@@ -52,26 +53,11 @@
 {{--                <p>{{ $article->created_at->format('Y년 m월 d일 H:i:s') }}</p>--}}
 {{--                    <a href="/articles/{{$article->id}}">{{ $article->created_at->diffForHumans() }} --}}{{-- ~분전 --}}{{--
                     </a>--}}
-                @can('update', $article)
-                <p>
-                    <a href="{{ route('articles.show', ['article' => $article->id, 'sort' => 'asc'])  }}">{{ $article->created_at->diffForHumans() }} {{-- ~분전 --}}
-                    </a>
-                </p>
-                {{-- 에러 난다면 날짜값이 없어서 그런 것 --}}
-                <div class="flex flex-row mt-2">
-                <p class="mt-1"><a class="button rounded bg-blue-500 px-3 py-1 text-xs text-white" href="{{ route('articles.edit', ['article' => $article->id]) }}">수정</a></p>
-                @endcan
-                @can('delete', $article)
-                <form action="{{route('articles.destroy', ['article'=>$article->id])}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="button rounded bg-red-500 px-3 py-1 text-xs text-white">삭제</button>
-                </form>
-                @endcan
-                </div>
+
+                <x-article-button-group :article=$article />
             </div>
         @endforeach
-
+        </div>
 
 
         {{--  --}}

@@ -213,4 +213,6 @@ class ArticleControllerTest extends TestCase
 
         $this->assertDatabaseHas('articles', ['id'=>$article->id]);
     }
+
+
 }

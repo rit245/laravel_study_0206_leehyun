@@ -49,9 +49,10 @@
                 <p>{{ $article->user->name }}</p>
                 <p>{{ $article->created_at }}</p>
                 {{-- 에러 난다면 날짜값이 없어서 그런 것 --}}
-                <p>{{ $article->created_at->format('Y년 m월 d일 H:i:s') }}</p>
+{{--                <p>{{ $article->created_at->format('Y년 m월 d일 H:i:s') }}</p>--}}
 {{--                    <a href="/articles/{{$article->id}}">{{ $article->created_at->diffForHumans() }} --}}{{-- ~분전 --}}{{--
                     </a>--}}
+                @can('update', $article)
                 <p>
                     <a href="{{ route('articles.show', ['article' => $article->id, 'sort' => 'asc'])  }}">{{ $article->created_at->diffForHumans() }} {{-- ~분전 --}}
                     </a>
@@ -59,12 +60,14 @@
                 {{-- 에러 난다면 날짜값이 없어서 그런 것 --}}
                 <div class="flex flex-row mt-2">
                 <p class="mt-1"><a class="button rounded bg-blue-500 px-3 py-1 text-xs text-white" href="{{ route('articles.edit', ['article' => $article->id]) }}">수정</a></p>
-
+                @endcan
+                @can('delete', $article)
                 <form action="{{route('articles.destroy', ['article'=>$article->id])}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button class="button rounded bg-red-500 px-3 py-1 text-xs text-white">삭제</button>
                 </form>
+                @endcan
                 </div>
             </div>
         @endforeach
@@ -85,9 +88,9 @@
 {{--        </ul>--}}
 
 {{--        --}}{{-- 페이지네이션 처리 (디자인도 해줍니다) --}}
-{{--        <div class="container p-5">--}}
-{{--            {{ $articles_name->links() }}--}}
-{{--        </div>--}}
+        <div class="container p-5">
+            {{ $articles_name->links() }}
+        </div>
 
 {{--        --}}{{-- for 문 사용 즉 전체가 나옴 --}}
 {{--        @for($i=0; $i < $articles_name->count(); $i++)--}}

@@ -125,7 +125,7 @@ class ArticleController extends Controller
         // view 두번째 아규먼트에 값을 넘길 수 있습니다.
         return view('articles.index', [
             'articles_name' => $articles,
-            // 'results_name' => $results,
+             'results_name' => $results,
             'q' => $q,
 //        'totalCount' => $totalCount,
 //        'page' => $page,
@@ -148,6 +148,7 @@ class ArticleController extends Controller
 
     public function edit(Article $article){
 
+        $this->authorize('update', $article);
         return view('articles.edit', ['article'=> $article]);
 
         // dd($article);
@@ -160,6 +161,14 @@ class ArticleController extends Controller
         // put 은 멱등성을 가지고 있다 : 연산을 여러 번 하더라도 결과가 달라지지 않는 성질
         // patch 는 일부만 바뀐다 (멱등성이 보장안됨)
         // 즉 put은 전체가 바뀜, patch 는 일부만 바뀜
+
+        // 첫번째 인증 방법
+//        if(!Auth::user()->can('update', $article)) {
+//            abort(403);
+//        }
+
+        // 두번째 인증 방법
+        $this->authorize('update', $article);
 
         /* DB 파사드 방식 */
         $input = $request->validate([

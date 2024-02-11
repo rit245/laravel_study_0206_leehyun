@@ -23,6 +23,14 @@
                 <!-- 댓글 작성 폼 끝 -->
 
                 <!-- 댓글 목록 시작 -->
+                <div class="mt-4">
+                @foreach($article->comments as $comment)
+                    <div class="mt-4">
+                        <p>{{$comment->body}}</p>
+                        <p class="text-xs text-gray-500">{{$comment->user->name}} {{ $comment->created_at->diffForHumans()  }}</p>
+                    </div>
+                @endforeach
+                </div>
                 <!-- 댓글 목록 끝 -->
             </div>
 <!-- 댓글 영역 끝            -->

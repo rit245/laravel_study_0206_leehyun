@@ -133,6 +133,8 @@ class ArticleController extends Controller
     }
 
     public function show(Article $article) {
+
+        $article->load('comments.user');
         // return 'here';
 
         // 경로 모델 바인딩을 사용하여, 'articles/{article}' URL로부터 Article 모델의 인스턴스를 직접 받습니다.

@@ -51,6 +51,9 @@
                 <p>{{ $article->created_at }}</p>
                 {{-- 에러 난다면 날짜값이 없어서 그런 것 --}}
 {{--                <p>{{ $article->created_at->format('Y년 m월 d일 H:i:s') }}</p>--}}
+                <span>댓글 {{$article->comments_count}}
+                @if($article->comments_exists) (new) @endif
+                </span>
 {{--                    <a href="/articles/{{$article->id}}">{{ $article->created_at->diffForHumans() }} --}}{{-- ~분전 --}}{{--
                     </a>--}}
 

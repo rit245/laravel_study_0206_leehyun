@@ -89,6 +89,9 @@ class ArticleController extends Controller
                 $query->where('user_id', 'like', "%$q%");
             });
         })
+        ->withCount('comments')
+        ->withExists(['comments'=>function($query){
+            $query->where('created_at', '>', Carbon::now()->subDay());        }]) // 조건에 맞는 댓글을 찾기 subHour subDay 기준
         ->latest() // orderby created_at desc 와 같습니다
         ->paginate($perPage); // 페이지네이션 처리 지원
         // ->get();

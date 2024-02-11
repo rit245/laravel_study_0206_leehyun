@@ -27,6 +27,7 @@
                 </div>
             </div>
 
+            @auth
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
@@ -60,6 +61,13 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            @else
+                <div class="flex">
+                    <x-nav-link :href="route('articles.index')" :active="request()->routeIs('articles.index')">
+                        {{ __('글 목록') }}
+                    </x-nav-link>
+                </div>
+            @endauth
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -73,6 +81,7 @@
         </div>
     </div>
 
+    @auth
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
@@ -112,4 +121,9 @@
             </div>
         </div>
     </div>
+    @else
+        <x-responsive-nav-link :href="route('articles.index')" :active="request()->routeIs('articles.index')">
+            {{ __('글 보기') }}
+        </x-responsive-nav-link>
+    @endauth
 </nav>

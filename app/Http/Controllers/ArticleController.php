@@ -13,6 +13,15 @@ use App\Models\Article;
 
 class ArticleController extends Controller
 {
+
+    public function __construct()
+    {
+//        $this->middleware('auth');
+//         $this->middleware('auth')->only('index', 'show'); // index, show 만 접근 가능
+        $this->middleware('auth')->except(['index', 'show']); // index, show 만 접근 가능
+
+    }
+
     //
     public function create(){
         return view('articles/create');

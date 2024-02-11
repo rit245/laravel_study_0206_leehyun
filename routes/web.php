@@ -80,6 +80,10 @@ require __DIR__.'/auth.php';
 //
 //});
 
+// 자체적으로 인증 걸려면
+//Route::resource('articles', ArticleController::class)->middleware('auth');
 
-Route::resource('articles', ArticleController::class); // 리소스 라우트가 존재하기에 한줄로 처리 가능
+Route::resource('articles', ArticleController::class);
+// 리소스 라우트가 존재하기에 한줄로 처리 가능
+
 

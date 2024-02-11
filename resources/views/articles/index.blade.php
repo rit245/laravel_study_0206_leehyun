@@ -5,7 +5,7 @@
 
         {{-- 글 목록 results_name 에서 가져옴 --}}
 
-        <h1 class="text-2xl">글목록 - 조인하여 작성자이름 추가</h1>
+{{--        <h1 class="text-2xl">글목록 - 조인하여 작성자이름 추가</h1>--}}
         <?php //dd($articles_name); ?>
 
 {{--        --}}{{-- foreach 문 사용 --}}{{--
@@ -24,9 +24,16 @@
 
 
         {{-- 글 목록 articles_name 에서 가져옴 --}}
-
-
-        <h1 class="text-2xl">글목록</h1>
+        <x-slot name="header">
+            <div class="flex justify-between items-center">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">글목록</h2>
+                <div>
+                    <form method="GET" action="{{route('articles.index')}}">
+                    <input type="text" name="q" class="rounded border-gray-200" placeholder="{{$q ?? "검색"}}">
+                    </form>
+                </div>
+            </div>
+        </x-slot>
         <?php //dd($articles_name); ?>
 
         {{-- foreach 문 사용 --}}

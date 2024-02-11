@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Carbon;
@@ -61,6 +62,8 @@ class ArticleController extends Controller
         // 모든 글 가져오기
         // $articles = Article::all();
 
+        $q = $request->input('q');
+
         $page = $request->input('page', 1); // GET page 값 가져오기
         $perPage = $request->input('per_page', 4); // GET per_page 값 가져오기
         $offset = ($page - 1) * $perPage;
@@ -73,6 +76,12 @@ class ArticleController extends Controller
         // ->oldest() // 가장 오래된 순서로
         // ->take($perPage) // 개수 제한
         // ->skip($offset) // 페이지 변경
+        ->when($q, function($query, $q){
+            $query->where('body', 'like', "%$q%")
+            ->orWhereHas('user', function(Builder $query) use ($q) {
+                $query->where('user_id', 'like', "%$q%");
+            });
+        })
         ->latest() // orderby created_at desc 와 같습니다
         ->paginate($perPage); // 페이지네이션 처리 지원
         // ->get();
@@ -107,7 +116,8 @@ class ArticleController extends Controller
         // view 두번째 아규먼트에 값을 넘길 수 있습니다.
         return view('articles.index', [
             'articles_name' => $articles,
-            'results_name' => $results,
+            // 'results_name' => $results,
+            'q' => $q,
 //        'totalCount' => $totalCount,
 //        'page' => $page,
 //        'perPage' => $perPage

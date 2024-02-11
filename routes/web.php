@@ -80,6 +80,6 @@ require __DIR__.'/auth.php';
 //
 //});
 
-//
 
-Route::resource('articles', ArticleController::class);
+Route::resource('articles', ArticleController::class); // 리소스 라우트가 존재하기에 한줄로 처리 가능
+

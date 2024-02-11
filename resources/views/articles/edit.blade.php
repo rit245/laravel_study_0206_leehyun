@@ -1,8 +1,4 @@
-<html>
-<head>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body>
+<x-app-layout>
 <div class="container p5">
     <h1 class="text-2xl">글 수정하기</h1>
     <form action="{{ route('articles.update', ['article'=> $article->id]) }}" method="post" class="mt-3">
@@ -23,5 +19,4 @@
         {{--            {{ dd(request()->session()) }} // 12강 --}}
     </form>
 </div>
-</body>
-</html>
+</x-app-layout>

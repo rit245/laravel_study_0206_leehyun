@@ -1,10 +1,5 @@
 {{-- https://carbon.nesbot.com/ 사용법 챙김 --}}
-
-<html>
-<head>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body>
+<x-app-layout>
     <div class="container p5">
 
 
@@ -109,5 +104,4 @@
 {{--            <p>{{  $articles_name[$i]->created_at  }}</p>--}}
 {{--        @endfor--}}
     </div>
-</body>
-</html>
+</x-app-layout>

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateArticleRequest;
+use App\Http\Requests\DeleteArticleRequest;
+use App\Http\Requests\EditArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -27,15 +31,9 @@ class ArticleController extends Controller
         return view('articles/create');
     }
 
-    public function store(Request $request){
+    public function store(CreateArticleRequest $request){
         /* DB 파사드 방식 */
-        $input = $request->validate([
-            'body' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-        ]);
+        $input = $request->validated();
 
         // DB 파사드를 이용하는 방법
         // DB::insert("INSERT INTO articles (body, user_id) VALUES (:body, :userId)", ['body' => $input['body'], 'userId' => Auth::id()]);
@@ -146,15 +144,15 @@ class ArticleController extends Controller
         // dd($article);
     }
 
-    public function edit(Article $article){
+    public function edit(EditArticleRequest $request, Article $article){
 
-        $this->authorize('update', $article);
+//        $this->authorize('update', $article);
         return view('articles.edit', ['article'=> $article]);
 
         // dd($article);
     }
 
-    public function update(Request $request, Article $article){
+    public function update(UpdateArticleRequest $request, Article $article){
 
         // The POST method is not supported for route articles/12/update. Supported methods: PUT.
         // 폼에 <input type="hidden" name="_method" value="PUT"> 추가
@@ -171,13 +169,7 @@ class ArticleController extends Controller
         $this->authorize('update', $article);
 
         /* DB 파사드 방식 */
-        $input = $request->validate([
-                                        'body' => [
-                                            'required',
-                                            'string',
-                                            'max:255'
-                                        ],
-                                    ]);
+        $input = $request->validated();
 
         $article->body = $input['body'];
         $article->save();
@@ -185,7 +177,7 @@ class ArticleController extends Controller
         return redirect()->route('articles.index');
     }
 
-    public function destroy(Article $article){
+    public function destroy(DeleteArticleRequest $request, Article $article){
         $article->delete();
 
         return redirect()->route('articles.index');

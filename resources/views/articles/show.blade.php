@@ -24,12 +24,14 @@
 
                 <!-- 댓글 목록 시작 -->
                 <div class="mt-4">
-                @foreach($article->comments as $comment)
+                @forelse($article->comments as $comment)
                     <div class="mt-4">
                         <p>{{$comment->body}}</p>
                         <p class="text-xs text-gray-500">{{$comment->user->name}} {{ $comment->created_at->diffForHumans()  }}</p>
                     </div>
-                @endforeach
+                @empty
+                    <p>게시물이 없습니다.</p>
+                @endforelse
                 </div>
                 <!-- 댓글 목록 끝 -->
             </div>

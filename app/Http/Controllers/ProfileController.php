@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +13,18 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    public function show(User $user): View
+    {
+        $user->load('articles.user');
+        $user->articles->loadCount('comments');
+        $user->articles->loadExists([
+            'comments as recent_comments_exists'=>function($query){
+            $query->where('created_at', '>', Carbon::now()->subDay());        }]); // 조건에 맞는 댓글을 찾기 subHour subDay 기준
+
+        return view('profile.show', [
+            'user' => $user
+        ]);
+    }
     /**
      * Display the user's profile form.
      */

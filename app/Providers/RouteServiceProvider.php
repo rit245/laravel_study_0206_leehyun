@@ -36,5 +36,8 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+
+        /* 글로벌에서 패턴 추가하기  */
+        // Route::pattern('user','[A-Za-z0-9-]+');
     }
 }

@@ -89,6 +89,10 @@ Route::resource('articles', ArticleController::class);
 
 Route::resource('comments', CommentController::class) ;
 
-Route::get('profile/{user}', [ProfileController::class, 'show'])->name('profile');
+Route::get('profile/{user:username}', [ProfileController::class, 'show'])
+    ->name('profile')
+    ->where('user', '[A-Za-z0-9-]+');
+
+// username:username :username 이라는 키를 사용하라고 알려줌
 
 

@@ -15,16 +15,14 @@
         </x-slot>
         <?php //dd($articles_name); ?>
 
-        <div class="container p-5 mx-auto">
             {{-- foreach 문 사용 --}}
             @foreach($articles_name as $article)
                 <x-list-article-item :article=$article />
             @endforeach
-        </div>
-            {{-- 페이지네이션 처리 (디자인도 해줍니다) --}}
+
+        {{-- 페이지네이션 처리 (디자인도 해줍니다) --}}
         <div class="container p-5">
             {{ $articles_name->links() }}
         </div>
-
     </div>
 </x-app-layout>

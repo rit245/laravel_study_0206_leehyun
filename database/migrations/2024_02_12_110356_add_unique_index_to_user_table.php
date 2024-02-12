@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-//        Schema::table('users', function (Blueprint $table) {
-////            $table->string('username')->unique();
-//            $table->string('username');
-//        });
+        Schema::table('users', function (Blueprint $table) {
+            // unique 인덱스 추가, 잘못 사용함 문제 사전 방지
+            $table->unique('username');
+        });
     }
 
     /**
@@ -23,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->cropColumn('username');
+            //
+            $table->dropUnique('username');
         });
     }
 };
